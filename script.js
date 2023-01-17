@@ -10,9 +10,9 @@ function gameOver(){
 }
 
 
-let questions = [{question: "this is question number 1", answers: ["ans1", "ans2", "ans3", "ans4"], correctAnswer: 1},
-{question: "QUESTION NO 2", answers: ["ans1", "ans2", "ans3", "ans4"], correctAnswer: 1},
-{question: "Numero 3 question", answers: ["ans1", "ans2", "ans3", "ans4"], correctAnswer: 1}]
+let questions = [{question: "this is question number 1", answers: ["ans1a", "ans2a", "ans3a", "ans4"], correctAnswer: 1},
+{question: "QUESTION NO 2", answers: ["ans1b", "ans2b", "ans3b", "ans4"], correctAnswer: 1},
+{question: "Numero 3 question", answers: ["ans1c", "ans2c", "ans3c", "ans4"], correctAnswer: 1}]
 
 let currentQuestion = 0;
 let questionsDisplayBox = document.querySelector("#questions");
@@ -41,7 +41,7 @@ startButton.addEventListener("click", function (e){
 //renderquestion()?
 changeQuestion();
 function changeQuestion (){
-    if (j < 4){
+    if (j < 3){
     questionTitle.textContent = questions[j].question;
 
 
@@ -56,6 +56,7 @@ function changeQuestion (){
         questionChoice.appendChild(option);
         }
         checkAnswer();
+
     }
 //render score
 
@@ -65,29 +66,45 @@ function changeQuestion (){
 function checkAnswer(){
     questionsDisplayBox.addEventListener("click", function (e){
                         e.preventDefault();
-        let answerChoice = e.target.getAttribute("data-index");
+        
+        if(e.target.matches(".answerButton")){
+            console.log(e.target)
+            let answerChoice = e.target.getAttribute("data-index");
         console.log(answerChoice);
-        if (answerChoice == questions.correctAnswer){
+        if (answerChoice == questions[j].correctAnswer){
             j++;
             // clearButtons();
+        questionChoice.textContent = ""
+            
             changeQuestion();
                 //render()
         } else {timer - 10;
         j++; 
         // clearButtons();
-        changeQuestion();
+        questionChoice.textContent = ""
+
+        changeQuestion();}
     //render()
 }
-        
+// clearButtons();
     })
+   
 }
 
-// function clearButtons() {
-//     let answerButton = document.querySelector(".answerButton");
+//  function clearButtons() {
+// //     let answerButton = document.querySelector(".answerButton");
   
+//   for (let i = 0; i < 4; i++){
+
+//     let option = document.querySelector(".answerButton");
+    
+//     option.innerHTML = "";
+    
+   
+//     }
 //    questionChoice.parentNode.removeChild(answerButton);
 
-// }
+//  }
 function renderScore() {
     questionsDisplayBox.setAttribute("class", "hide");
     endScreen.setAttribute("class", "start");
